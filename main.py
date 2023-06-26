@@ -20,9 +20,9 @@ type_of_search = "kawalerka"
 offer_type = "wynajem"
 
 # Price from
-price_range_from = "2000"
+price_range_from = "1500"
 # Price to
-price_range_to = "3000"
+price_range_to = "2500"
 
 # City name
 city = "warszawa"

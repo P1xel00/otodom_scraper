@@ -2,11 +2,13 @@ import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver import Keys
 
-options = webdriver.ChromeOptions()
-options.add_argument('--headless')
+options = Options()
+options.page_load_strategy = "normal"
+options.add_argument("--headless=new")
 # Path to your local chrome driver
 chrome_driver_path = "C:/Users/__YOUR_USER__/DevTools/chromedriver.exe"
 
@@ -15,7 +17,7 @@ class Scraper:
     def __init__(self, link, type_of_search):
         self.link = link
         self.type_of_search = type_of_search
-        self.driver = webdriver.Chrome(service=Service(chrome_driver_path), chrome_options=options)
+        self.driver = webdriver.Chrome(service=Service(chrome_driver_path), options=options)
         self.pages_num = 0
         self.addresses = []
         self.square_footages = []
@@ -45,10 +47,10 @@ class Scraper:
                 soup = BeautifulSoup(page_source, "html.parser")
             offers = soup.find_all(name="li", class_="css-iq9jxc e1n6ljqa1")
             for offer in offers:
-                link = offer.find(name="a", class_="css-1up0y1q e1n6ljqa16").get("href")
+                link = offer.find(name="a", class_="css-1up0y1q e1n6ljqa3").get("href")
                 link = f"https://www.otodom.pl{link}"
                 self.links.append(link)
-                address = offer.find(name="p", class_="css-14aokuk e1n6ljqa7").text
+                address = offer.find(name="p", class_="css-14aokuk e1ualqfi4").text
                 self.addresses.append(address)
                 try:
                     if self.type_of_search == "inwestycja" or self.type_of_search == "dzialka" or self.type_of_search == "lokal" or self.type_of_search == "haleimagazyny" or self.type_of_search == "garaz":
